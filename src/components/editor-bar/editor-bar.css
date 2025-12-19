@@ -1,0 +1,17 @@
+.editor-bar {
+    display: flex;
+    background-color: var(--secondary-color);
+    height: 4vh
+}
+
+.editor-button {
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+    
+    transition: background-color 0.1s ease-out;
+}
+
+.editor-button:hover {
+    background-color: var(--primary-color)
+}

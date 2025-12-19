@@ -1,0 +1,17 @@
+:root, html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: sans-serif
+}
+
+#root.theme-light {
+  --primary-color: #2e6cbeff;
+  --secondary-color: #4176bbff;
+}
+
+#root.theme-dark {
+  --primary-color: #000000;
+  --secondary-color: #161616ff;
+}
