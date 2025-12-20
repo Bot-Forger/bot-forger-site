@@ -1,6 +1,7 @@
 import { EventEmitter } from 'events';
-import JSZip from 'jszip';
-import * as Blockly from 'blockly/core';
+
+import serialize from './serialize';
+import deserializeToWorkspace from './deserialize';
 
 class WorkspaceManager extends EventEmitter {
     constructor() {
@@ -41,33 +42,17 @@ class WorkspaceManager extends EventEmitter {
     }
     async loadWorkspaceFromFile() {
         const openedFile = await this.openFile('*.botf');
-        const jszip = new JSZip();
 
         try {
-            const zip = await jszip.loadAsync(await openedFile.arrayBuffer());
-
-            const workspaceFile = zip.file("workspace.xml");
-            if (workspaceFile) {
-                this.workspace.clear();
-                const xmlDom = Blockly.utils.xml.textToDom(await workspaceFile.async('text'));
-                Blockly.Xml.domToWorkspace(xmlDom, this.workspace);
-            } else {
-                throw new Error('workspace.xml not found in file');
-            }
+           const json = JSON.parse(await openedFile.text());
+           deserializeToWorkspace(json, this.workspace);
         } catch (e) {
-            console.warn('Failed to load workspace from file: ' + e);
+            console.warn('Failed to load workspace from file', e);
         }
     }
     async saveWorkspaceToFile(fileName) {
-        const xmlDom = Blockly.Xml.workspaceToDom(this.workspace);
-        const xmlString = Blockly.Xml.domToText(xmlDom);
-
-        const zip = new JSZip();
-        zip.file('workspace.xml', xmlString);
-
-        const generatedZip = await zip.generateAsync({ type: 'blob' });
-
-        this.saveFile(fileName, URL.createObjectURL(generatedZip));
+        const serialized = JSON.stringify(serialize(this.workspace));
+        this.saveFile(fileName, URL.createObjectURL(new Blob([serialized])));
     }
 };
 
