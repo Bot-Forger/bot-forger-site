@@ -1,23 +1,26 @@
-const numberShadow = (inputId, defaultValue) => 
+const numberShadow = (inputId, defaultValue) =>
   `<value name="${inputId}"><shadow type="math_number"><field name="NUM">${defaultValue}</field></shadow></value>`;
 
-const stringShadow = (inputId, defaultValue) => 
+const stringShadow = (inputId, defaultValue) =>
   `<value name="${inputId}"><shadow type="string_shadow"><field name="TEXT">${defaultValue}</field></shadow></value>`;
 
-const blockShadow = (inputId, blockId) => 
+const blockShadow = (inputId, blockId) =>
   `<value name="${inputId}"><shadow type="${blockId}"></shadow></value>`;
 
-const sep = () => `<sep gap="70"></sep>`;
+const sep = (gap = 50) => `<sep gap="${gap}"></sep>`;
 
 const categoryColors = {
-    Tests: "#14e3a2",
-    Events: "#e59e19",
-    Messages: "#2d9528",
-    Members: "#437bc5",
-    Emojis: "#e0c138",
-    Stickers: "#c7b04b",
-    Invites: "#734242",
-    Webhooks: "#5d3535"
+  Tests: "#14e3a2",
+  Text: "#58a69c",
+  Lists: '#e53935',
+  Events: "#e59e19",
+  Messages: "#2d9528",
+  Members: "#437bc5",
+  Emojis: "#e0c138",
+  Stickers: "#c7b04b",
+  Invites: "#9e31b9",
+  Webhooks: "#6243ac",
+  Channels: "#435cac"
 };
 
 export default `
@@ -44,6 +47,55 @@ export default `
       ${numberShadow('INPUT2', 10)}
     </block>
   </category>
+  <category name="Text" colour="${categoryColors.Text}">
+    <block type="text_asText"></block>
+    <block type="text_join">
+      ${stringShadow("INPUT1", "")}
+      ${stringShadow("INPUT2", "")}
+    </block>
+    <block type="text_length">
+      ${stringShadow("INPUT", "")}
+    </block>
+    <block type="text_contains">
+      ${stringShadow("INPUT", "")}
+      ${stringShadow("SUB", "")}
+    </block>
+    <block type="text_startsEnds">
+      ${stringShadow("INPUT", "")}
+      ${stringShadow("SUB", "")}
+    </block>
+    <block type="text_lettersFrom">
+      ${numberShadow("START", 1)}
+      ${numberShadow("END", 3)}
+      ${stringShadow("input", "")}
+    </block>
+    <block type="text_replace">
+      ${stringShadow("FROM", "")}
+      ${stringShadow("TO", "")}
+      ${stringShadow("INPUT", "")}
+    </block>
+    <block type="text_charAt">
+      ${numberShadow("INDEX", 1)}
+      ${stringShadow("INPUT", "")}
+    </block>
+    <block type="text_indexOf">
+      ${stringShadow("SUB", "")}
+      ${stringShadow("INPUT", "")}
+    </block>
+    <block type="text_toCase">
+      ${stringShadow("INPUT", "")}
+    </block>
+    ${sep()}
+    <block type="text_logConsole">
+      ${stringShadow("INPUT", "")}
+    </block>
+  </category>
+  <category name="Lists" colour="${categoryColors.Lists}">
+    <block type="lists_forEach">
+      ${blockShadow('ITEM', 'lists_forEach_item')}
+    </block>
+  </category>
+  ${sep()}
   <category name="Events" colour=${categoryColors.Events}>
     <block type="events_whenStarted"></block>
     ${sep()}
@@ -178,7 +230,7 @@ export default `
     </block>
     <block type="webhooks_delete"></block>
   </category>
-  <category name="Channels" colour="${categoryColors.Webhooks}">
+  <category name="Channels" colour="${categoryColors.Channels}">
     <block type="channels_all"></block>
     <block type="channels_find">
       ${stringShadow('SEARCH', 'general')}

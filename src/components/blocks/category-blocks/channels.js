@@ -1,9 +1,9 @@
 import * as Blockly from 'blockly';
 
-const categoryColor = "#5d3535";
+const categoryColor = "#435cac";
 
 Blockly.Blocks['channels_all'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('SERVER')
             .setCheck('Server')
             .appendField('all channels in server');
@@ -14,7 +14,7 @@ Blockly.Blocks['channels_all'] = {
 }
 
 Blockly.Blocks['channels_find'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('SERVER')
             .setCheck('Server')
             .appendField('find channel in server');
@@ -32,7 +32,7 @@ Blockly.Blocks['channels_find'] = {
 }
 
 Blockly.Blocks['channels_getAttribute'] = {
-    init: function() {
+    init: function () {
         this.appendDummyInput()
             .appendField('get')
             .appendField(new Blockly.FieldDropdown([
@@ -52,7 +52,7 @@ Blockly.Blocks['channels_getAttribute'] = {
 }
 
 Blockly.Blocks['channels_create'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('SERVER')
             .setCheck('Server')
             .appendField('create channel in server');
@@ -80,7 +80,7 @@ Blockly.Blocks['channels_create'] = {
 }
 
 Blockly.Blocks['channels_move'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('SERVER')
             .setCheck('Server')
             .appendField('move channel');
@@ -95,7 +95,7 @@ Blockly.Blocks['channels_move'] = {
 }
 
 Blockly.Blocks['channels_rename'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('CHANNEL')
             .setCheck('Channel')
             .appendField('rename channel');
@@ -110,7 +110,7 @@ Blockly.Blocks['channels_rename'] = {
 }
 
 Blockly.Blocks['channels_delete'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('CHANNEL')
             .setCheck('Channel')
             .appendField('delete channel');
@@ -122,7 +122,7 @@ Blockly.Blocks['channels_delete'] = {
 }
 
 Blockly.Blocks['channels_setTopic'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('CHANNEL')
             .setCheck('Channel')
             .appendField('set topic of channel');
@@ -137,7 +137,7 @@ Blockly.Blocks['channels_setTopic'] = {
 }
 
 Blockly.Blocks['channels_setSlowmode'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('CHANNEL')
             .setCheck('Channel')
             .appendField('set slowmode of channel');
@@ -152,7 +152,7 @@ Blockly.Blocks['channels_setSlowmode'] = {
 }
 
 Blockly.Blocks['channels_purge'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('MESSAGES')
             .setCheck('Number')
             .appendField('purge');
@@ -167,7 +167,7 @@ Blockly.Blocks['channels_purge'] = {
 }
 
 Blockly.Blocks['channels_type'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('CHANNEL')
             .setCheck('Channel')
             .appendField('type in channel');

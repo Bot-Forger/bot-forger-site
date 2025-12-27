@@ -1,9 +1,9 @@
 import * as Blockly from 'blockly';
 
-const categoryColor = "#5d3535";
+const categoryColor = "#6243ac";
 
 Blockly.Blocks['webhooks_create'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('CHANNEL')
             .setCheck('Channel')
             .appendField('create webhook in channel');
@@ -22,7 +22,7 @@ Blockly.Blocks['webhooks_create'] = {
 }
 
 Blockly.Blocks['webhooks_fetch'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('ID')
             .setCheck('String')
             .appendField('fetch webhook with id');
@@ -36,7 +36,7 @@ Blockly.Blocks['webhooks_fetch'] = {
 }
 
 Blockly.Blocks['webhooks_getAttribute'] = {
-    init: function() {
+    init: function () {
         this.appendDummyInput()
             .appendField('get')
             .appendField(new Blockly.FieldDropdown([
@@ -54,7 +54,7 @@ Blockly.Blocks['webhooks_getAttribute'] = {
 }
 
 Blockly.Blocks['webhooks_send'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('WEBHOOK')
             .setCheck('Webhook')
             .appendField('send message with webhook');
@@ -69,7 +69,7 @@ Blockly.Blocks['webhooks_send'] = {
 }
 
 Blockly.Blocks['webhooks_edit'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('WEBHOOK')
             .setCheck('Webhook')
             .appendField('edit webhook');
@@ -88,7 +88,7 @@ Blockly.Blocks['webhooks_edit'] = {
 }
 
 Blockly.Blocks['webhooks_delete'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('WEBHOOK')
             .setCheck('Webhook')
             .appendField('delete webhook');

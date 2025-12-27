@@ -1,9 +1,9 @@
 import * as Blockly from 'blockly';
 
-const categoryColor = "#734242";
+const categoryColor = "#9e31b9";
 
 Blockly.Blocks['invites_all'] = {
-    init: function() {
+    init: function () {
         this.appendDummyInput().appendField('all invites for server');
         this.appendValueInput('SERVER').setCheck('Server');
         this.setInputsInline(true);
@@ -13,7 +13,7 @@ Blockly.Blocks['invites_all'] = {
 }
 
 Blockly.Blocks['invites_allChannel'] = {
-    init: function() {
+    init: function () {
         this.appendDummyInput().appendField('all invites for channel');
         this.appendValueInput('CHANNEL').setCheck('Channel');
         this.setInputsInline(true);
@@ -23,7 +23,7 @@ Blockly.Blocks['invites_allChannel'] = {
 }
 
 Blockly.Blocks['invites_getAttribute'] = {
-    init: function() {
+    init: function () {
         this.appendDummyInput()
             .appendField('get')
             .appendField(new Blockly.FieldDropdown([
@@ -40,7 +40,7 @@ Blockly.Blocks['invites_getAttribute'] = {
 }
 
 Blockly.Blocks['invites_fetch'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('URL')
             .setCheck('String')
             .appendField('fetch invite from URL');
@@ -51,7 +51,7 @@ Blockly.Blocks['invites_fetch'] = {
 }
 
 Blockly.Blocks['invites_create'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('CHANNEL')
             .setCheck('Channel')
             .appendField('create invite for channel');
@@ -65,7 +65,7 @@ Blockly.Blocks['invites_create'] = {
 }
 
 Blockly.Blocks['invites_delete'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('INVITE')
             .setCheck('Invite')
             .appendField('delete invite');

@@ -3,7 +3,7 @@ import * as Blockly from 'blockly';
 const categoryColor = "#437bc5";
 
 Blockly.Blocks['members_thisBot'] = {
-    init: function() {
+    init: function () {
         this.appendDummyInput().appendField('this bot as a member');
         this.setOutput(true, 'Member');
         this.setColour(categoryColor);
@@ -11,7 +11,7 @@ Blockly.Blocks['members_thisBot'] = {
 }
 
 Blockly.Blocks['members_all'] = {
-    init: function() {
+    init: function () {
         this.appendDummyInput().appendField('all members in server');
         this.appendValueInput('SERVER').setCheck('Server');
         this.setInputsInline(true);
@@ -21,7 +21,7 @@ Blockly.Blocks['members_all'] = {
 }
 
 Blockly.Blocks['members_find'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('SERVER').setCheck('Server').appendField('find member in server');
         this.appendValueInput('SEARCH')
             .setCheck('String')
@@ -37,7 +37,7 @@ Blockly.Blocks['members_find'] = {
 }
 
 Blockly.Blocks['members_getAttribute'] = {
-    init: function() {
+    init: function () {
         this.appendDummyInput()
             .appendField('get')
             .appendField(new Blockly.FieldDropdown([
@@ -57,9 +57,9 @@ Blockly.Blocks['members_getAttribute'] = {
 }
 
 Blockly.Blocks['members_isBot'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('MEMBER').setCheck('Member').appendField('is member');
-        this.appendDummyInput().appendField('a bot');
+        this.appendDummyInput().appendField('a bot?');
         this.setInputsInline(true);
         this.setOutput(true, 'Boolean');
         this.setColour(categoryColor);
@@ -67,9 +67,10 @@ Blockly.Blocks['members_isBot'] = {
 }
 
 Blockly.Blocks['members_isInServer'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('MEMBER').setCheck('Member').appendField('is member')
         this.appendValueInput('SERVER').setCheck('Server').appendField('in server');
+        this.appendDummyInput().appendField("?");
         this.setInputsInline(true);
         this.setOutput(true, 'Boolean');
         this.setColour(categoryColor);
@@ -77,7 +78,7 @@ Blockly.Blocks['members_isInServer'] = {
 }
 
 Blockly.Blocks['members_ban'] = {
-    init: function() {
+    init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldDropdown([
                 ['ban', 'BAN'],
@@ -93,7 +94,7 @@ Blockly.Blocks['members_ban'] = {
 }
 
 Blockly.Blocks['members_timeout'] = {
-    init: function() {
+    init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldDropdown([
                 ['timeout', 'TIME'],
@@ -110,7 +111,7 @@ Blockly.Blocks['members_timeout'] = {
 }
 
 Blockly.Blocks['members_kick'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('MEMBER').setCheck('Member').appendField('kick member');
         this.appendValueInput('REASON').setCheck('String').appendField('with reason');
         this.setInputsInline(true);
@@ -121,13 +122,14 @@ Blockly.Blocks['members_kick'] = {
 }
 
 Blockly.Blocks['members_isModerated'] = {
-    init: function() {
+    init: function () {
         this.appendValueInput('MEMBER').setCheck('Member').appendField('is member');
         this.appendDummyInput()
             .appendField(new Blockly.FieldDropdown([
                 ['timed out', 'TIMED'],
                 ['banned', 'BANNED']
-            ]), 'TYPE');
+            ]), 'TYPE')
+            .appendField("?");
         this.setInputsInline(true);
         this.setOutput(true, 'Boolean');
         this.setColour(categoryColor);

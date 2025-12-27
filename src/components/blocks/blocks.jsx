@@ -10,7 +10,9 @@ import renderer from './renderer.js';
 import './patches.js';
 import './blocks.css';
 
-import './category-blocks/tests.js'
+import './category-blocks/tests.js';
+import './category-blocks/text.js';
+import './category-blocks/lists.js';
 import './category-blocks/events.js';
 import './category-blocks/messages.js';
 import './category-blocks/members.js';
