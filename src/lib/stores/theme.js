@@ -1,22 +1,25 @@
 import { EventEmitter } from 'events';
 
 class ThemeStore extends EventEmitter {
-    constructor() {
+    constructor () {
         super();
         
         this.theme = localStorage.getItem('theme') ?? this.getUserThemePreference();
     }
-    getUserThemePreference() {
+    getUserThemePreference () {
         return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
-    getTheme() {
+    getTheme () {
         return this.theme;
     }
-    setTheme(theme) {
+    setTheme (theme) {
         this.theme = theme;
         localStorage.setItem('theme', theme);
 
         this.emit('themeChange', theme);
+    }
+    toggleTheme () {
+        this.setTheme(this.theme === 'light' ? 'dark' : 'light');
     }
 
 }

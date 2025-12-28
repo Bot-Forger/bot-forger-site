@@ -1,0 +1,37 @@
+.bot-setting {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px
+}
+
+body.theme-dark .bot-setting {
+    background-color: var(--tertiary-color);
+}
+
+body.theme-light .bot-setting {
+    background-color: #d2d2d2
+}
+
+.bot-setting > span {
+    width: 30%
+}
+
+.bot-setting > input {
+    margin-left: 10px;
+    width: 60%;
+    border: none;
+    border-radius: 5px;
+    padding: 5px
+}
+
+body.theme-dark .bot-setting > input {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.bot-setting > p {
+    margin: 0;
+    font-style: italic;
+    font-size: 14px;
+    margin-top: 5px
+}

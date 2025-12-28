@@ -1,0 +1,12 @@
+.error-message {
+    display: inline
+}
+
+.error-icon {
+    vertical-align: middle;
+    margin: 10px;
+}
+
+body.theme-dark .error-icon > g > g {
+    fill: yellow
+}

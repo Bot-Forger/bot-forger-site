@@ -3,44 +3,85 @@ import { EventEmitter } from 'events';
 import serialize from './serialize';
 import deserializeToWorkspace from './deserialize';
 
+import notify from './notify';
+
 class WorkspaceManager extends EventEmitter {
     constructor() {
         super();
 
         this.workspace = null;
+        this.saveDirty = false;
+
+        // Check if resaving files without redownloading is supported (Chromium based browsers only).
+        this.supportsFSAccess = 'showOpenFilePicker' in window && 'FileSystemFileHandle' in window;
+        this.fileHandle = null;
     }
-    attachWorkspace(workspace) {
+    onBeforeUnload (event) {
+        console.log(this.saveDirty);
+        if (this.saveDirty) {
+            event.preventDefault();
+            event.returnValue = '';
+        }
+    }
+    onWorkspaceChanged (event) {
+        if (!event.isUiEvent) this.saveDirty = true;
+    }
+    attachWorkspace (workspace) {
         this.workspace = workspace;
+        this.workspace.addChangeListener(e => this.onWorkspaceChanged(e));
+        window.addEventListener('beforeunload', e => this.onBeforeUnload(e));
     }
-    detatchWorkspace() {
+    detatchWorkspace () {
+        this.workspace.removeChangeListener(e => this.onWorkspaceChanged(e));
+        window.removeEventListener('beforeunload', e => this.onBeforeUnload(e));
         this.workspace = null;
     }
-    openFile(accept) {
-        return new Promise((resolve, reject) => {
-            const i = document.createElement('input');
-            i.type = 'file';
-            i.accept = accept;
+    openFile (accept) {
+        return new Promise(async (resolve, reject) => {
+            if (this.supportsFSAccess) {
+                const fileHandles = await window.showOpenFilePicker({
+                    multiple: false,
+                    types: [{
+                        description: "Bot Forger Files",
+                        accept: { 'text/json': ['.botf'] }
+                    }]
+                });
+                this.fileHandle = fileHandles[0];
+                resolve(await this.fileHandle.getFile());
+            } else {
+                const i = document.createElement('input');
+                i.type = 'file';
+                i.accept = accept;
 
-            i.onchange = e => {
-                if (e.target.files.length > 0) {
-                    resolve(e.target.files[0]);
-                } else {
-                    resolve('');
+                i.onchange = e => {
+                    if (e.target.files.length > 0) {
+                        resolve(e.target.files[0]);
+                    } else {
+                        resolve('');
+                    }
                 }
-            }
 
-            i.click();
-            i.remove();
+                i.click();
+                i.remove();
+            }
         });
     }
-    saveFile(fileName, blobURI) {
-        const a = document.createElement('a');
-        a.href = blobURI;
-        a.download = fileName;
-        a.click();
-        a.remove();
+    saveFile (fileName, blob) {
+        if (this.fileHandle) {
+            this.fileHandle.createWritable()
+                .then(writable => 
+                    writable.write(blob)
+                    .then(() => writable.close()));
+        } else {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = fileName;
+            a.click();
+            a.remove();
+        }
+        this.saveDirty = false;
     }
-    async loadWorkspaceFromFile() {
+    async loadWorkspaceFromFile () {
         const openedFile = await this.openFile('*.botf');
 
         try {
@@ -50,9 +91,9 @@ class WorkspaceManager extends EventEmitter {
             console.warn('Failed to load workspace from file', e);
         }
     }
-    async saveWorkspaceToFile(fileName) {
+    async saveWorkspaceToFile (fileName) {
         const serialized = JSON.stringify(serialize(this.workspace));
-        this.saveFile(fileName, URL.createObjectURL(new Blob([serialized])));
+        this.saveFile(fileName, new Blob([serialized]));
     }
 };
 

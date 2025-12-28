@@ -6,12 +6,14 @@
   font-family: sans-serif
 }
 
-#root.theme-light {
-  --primary-color: #2e6cbeff;
-  --secondary-color: #4176bbff;
+body.theme-light {
+  --primary-color: #e0e0e0ff;
+  --secondary-color: #232323ff;
+  --tertiary-color: #4176bbff;
 }
 
-#root.theme-dark {
-  --primary-color: #000000;
-  --secondary-color: #161616ff;
+body.theme-dark {
+  --primary-color: #272727;
+  --secondary-color: #e0e0e0ff;
+  --tertiary-color: #232323ff
 }

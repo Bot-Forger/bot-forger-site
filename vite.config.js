@@ -10,9 +10,6 @@ export default defineConfig(({ mode }) => {
     base: '/',
     server: {
       port: env.PORT || 5173
-    },
-    define: {
-      'process.env.BACKEND_URL': '"no"'
     }
   }
 });

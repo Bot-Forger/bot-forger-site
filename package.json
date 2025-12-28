@@ -11,11 +11,15 @@
   },
   "dependencies": {
     "@blockly/theme-dark": "^8.0.1",
+    "@tanstack/react-query": "^5.90.12",
     "blockly": "^12.3.1",
     "events": "^3.3.0",
+    "js-cookie": "^3.0.5",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router": "^7.10.1"
+    "react-modal": "^3.16.3",
+    "react-router": "^7.10.1",
+    "react-toastify": "^11.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

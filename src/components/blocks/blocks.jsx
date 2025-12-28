@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as Blockly from 'blockly/core';
 import DarkTheme from '@blockly/theme-dark';
 
@@ -24,6 +24,7 @@ import './category-blocks/channels.js';
 
 const BlocklyWorkspace = () => {
     const blocklyDiv = useRef(null);
+    const [saveDirty, setSaveDirty] = useState(false);
 
     useEffect(() => {
         const toolboxDom = Blockly.utils.xml.textToDom(toolboxXML);
@@ -55,18 +56,28 @@ const BlocklyWorkspace = () => {
         });
 
         window.Blockly = Blockly;
-
+        
         const handleThemeChange = theme => {
             if (theme === 'dark') {
                 workspace.setTheme(DarkTheme);
-                workspace.setGrid
+                workspace.grid.line1.setAttribute('stroke', '#252525');
+                workspace.grid.line2.setAttribute('stroke', '#252525');
             } else if (theme === 'light') {
                 workspace.setTheme(Blockly.Themes.Classic);
+                workspace.grid.line1.setAttribute('stroke', '#ebebeb');
+                workspace.grid.line2.setAttribute('stroke', '#ebebeb');
+            }
+            
+            // Fix hats getting their hat property removed
+            // I'm fairly certain this is a bug with Blockly but who knows
+            for (const block of workspace.blockDB.values()) {
+                if (block.hasOwnProperty('hat')) {
+                    block.hat = 'cap';
+                }
             }
         };
 
         ThemeStore.on('themeChange', handleThemeChange);
-
         WorkspaceManager.attachWorkspace(workspace);
 
         return () => {

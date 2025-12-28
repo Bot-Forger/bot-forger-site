@@ -1,7 +1,24 @@
 .editor-bar {
     display: flex;
-    background-color: var(--secondary-color);
+    background-color: var(--tertiary-color);
     height: 4vh
+}
+
+.editor-bar-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    z-index: 75;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: var(--tertiary-color);
+    filter: brightness(1.1)
+}
+
+.editor-bar-dropdown > :last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .editor-button {
@@ -12,6 +29,16 @@
     transition: background-color 0.1s ease-out;
 }
 
-.editor-button:hover {
-    background-color: var(--primary-color)
+.editor-button[disabled] {
+    opacity: 0.1;
+    pointer-events: none;
+
+}
+
+.editor-button:not([disabled]):hover {
+    background-color: color-mix(
+        in srgb,
+        var(--tertiary-color) 90%,
+        black
+    )
 }
