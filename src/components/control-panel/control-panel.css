@@ -1,0 +1,27 @@
+.control-panel > p {
+    margin-bottom: 0.25rem
+}
+
+.control-panel > i, .control-panel > .bot-status, .control-panel > .bot-uptime {
+    margin-top: 0.4rem;
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.button-container > button {
+    padding: 0.2rem 1rem 0.2rem 1rem;
+    margin: 0.3rem;
+    font-size: 1rem;
+}
+
+.button-container > button:not([disabled]) {
+    cursor: pointer;
+}
+
+.button-container > button > svg {
+    vertical-align: middle;
+}

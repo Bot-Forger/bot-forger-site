@@ -43,7 +43,7 @@ function BotModal (props) {
             />
             <Setting
                 name="Discord bot token"
-                value={settings['token'] || ''}
+                value={settings['token'] || '●'.repeat(settings['tokenLen']) || ''}
                 desc="Your bot's token is used to deploy and run the bot."
                 placeholder="Enter your bot token here"
                 onChange={v => handleSettingChange('token', v.target.value)}
@@ -51,9 +51,9 @@ function BotModal (props) {
             <Setting
                 name="Discord bot ID"
                 type="number"
-                value={settings['id'] || ''}
+                value={settings['app_id'] || ''}
                 placeholder="Enter your bot ID here"
-                onChange={v => handleSettingChange('id', v.target.value)}
+                onChange={v => handleSettingChange('app_id', v.target.value)}
             />
         </Modal>
     )

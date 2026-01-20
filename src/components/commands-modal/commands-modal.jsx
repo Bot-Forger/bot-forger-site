@@ -58,6 +58,7 @@ function CommandsModal (props) {
                     <CommandsItem
                         key={i}
                         name={command.name}
+                        description={command.description}
                         NSFW={command.NSFW}
                         options={command.options || []}
                         onUpdate={(a, v) => handleChange(i, a, v)}

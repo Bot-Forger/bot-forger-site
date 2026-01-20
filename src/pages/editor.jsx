@@ -1,66 +1,76 @@
 import { useState } from 'react';
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-import { ToastContainer } from 'react-toastify';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router';
 
 import BlocklyWorkspace from '../components/blocks/blocks.jsx';
 import MenuBar from '../components/menu-bar/menu-bar.jsx';
 import Button from '../components/button/button.jsx';
+import Loader from '../components/loader/loader.jsx';
 import DropdownMenu from '../components/menu-bar/dropdown.jsx';
 
 import workspaceManager from '../lib/workspace-manager.js';
 import ThemeStore from '../lib/stores/theme.js';
-import AccountStore from '../lib/stores/account.js';
+import BotStore from '../lib/stores/bot.js';
 
 import SecretsModal from '../components/secrets-modal/secrets-modal.jsx';
 import BotModal from '../components/bot-modal/bot-modal.jsx';
 import CommandsModal from '../components/commands-modal/commands-modal.jsx';
+import ControlPanel from '../components/control-panel/control-panel.jsx';
 
 export default function Editor () {
     const [modalOpen, setModalOpen] = useState(null);
+    const handleModalClose = () => setModalOpen(null);
+    const { id } = useParams();
 
-    const queryClient = new QueryClient({
-        defaultOptions: {
-            queries: {
-                retry: false,
-                refetchOnWindowFocus: false,
-                refetchIntervalInBackground: false,
-            }
-        }
+    const { isPending, error } = useQuery({
+        queryKey: ['botData'],
+        queryFn: () => BotStore.loadFromID(id)
     });
 
-    const handleModalClose = () => setModalOpen(null);
+    if (isPending) {
+        return <Loader />;
+    }
+
+    if (error && !isPending) {
+        console.error(error);
+        history.replaceState(null, "", "/editor");
+    }
 
     return (
-        <QueryClientProvider client={queryClient}>
-            <ToastContainer />
-            <div className='page-wrapper'>
-                <MenuBar>
-                    <DropdownMenu label="File">
-                        <Button onClick={() => workspaceManager.loadWorkspaceFromFile()}>Load from file</Button>
-                        <Button onClick={() => workspaceManager.saveWorkspaceToFile('hi.botf')}>Save as</Button>
-                    </DropdownMenu>
-                    <DropdownMenu label="Edit">
-                        <Button onClick={() => ThemeStore.toggleTheme()}>Change Theme</Button>
-                        <Button disabled={!AccountStore.hasSession} onClick={() => setModalOpen('commands')}>Commands</Button>
-                        <Button disabled={!AccountStore.hasSession} onClick={() => setModalOpen('secrets')}>Secrets</Button>
-                        <Button disabled={!AccountStore.hasSession} onClick={() => setModalOpen('botSettings')}>Bot Settings</Button>
-                    </DropdownMenu>
-                    <Button onClick={() => window.open('https://scratch.mit.edu/users/lordcat__/#comments', '_blank')}>Feedback</Button>
-                </MenuBar>
-                <BlocklyWorkspace />
-                <BotModal
-                    isOpen={modalOpen === 'botSettings'}
-                    onClose={handleModalClose}
-                />
-                <CommandsModal
-                    isOpen={modalOpen === 'commands'}
-                    onClose={handleModalClose}
-                />
-                <SecretsModal
-                    isOpen={modalOpen === 'secrets'}
-                    onClose={handleModalClose}
-                />
-            </div>
-        </QueryClientProvider>
-    )
+        <div className='page-wrapper'>
+            <MenuBar>
+                <DropdownMenu label="File">
+                    <Button onClick={() => workspaceManager.loadWorkspaceFromFile()}>Load from file</Button>
+                    <Button onClick={() => workspaceManager.saveWorkspaceToFile('hi.botf')}>Save as</Button>
+                </DropdownMenu>
+                <DropdownMenu label="Edit">
+                    <Button onClick={() => ThemeStore.toggleTheme()}>Change Theme</Button>
+                    <Button disabled={!BotStore.botLoaded} onClick={() => setModalOpen('commands')}>Commands</Button>
+                    <Button disabled={!BotStore.botLoaded} onClick={() => setModalOpen('secrets')}>Secrets</Button>
+                    <Button disabled={!BotStore.botLoaded} onClick={() => setModalOpen('botSettings')}>Bot Settings</Button>
+                </DropdownMenu>
+                {BotStore.botLoaded &&
+                    <Button onClick={() => setModalOpen('controlPanel')}>Control Panel</Button>
+                }
+                <Button onClick={() => window.open('https://scratch.mit.edu/users/lordcat__/#comments', '_blank')}>Feedback</Button>
+            </MenuBar>
+            <BlocklyWorkspace />
+            <BotModal
+                isOpen={modalOpen === 'botSettings'}
+                onClose={handleModalClose}
+            />
+            <CommandsModal
+                isOpen={modalOpen === 'commands'}
+                onClose={handleModalClose}
+            />
+            <SecretsModal
+                isOpen={modalOpen === 'secrets'}
+                onClose={handleModalClose}
+            />
+            <ControlPanel
+                isOpen={modalOpen === 'controlPanel'}
+                onClose={handleModalClose}
+            />
+        </div>
+    );
 }

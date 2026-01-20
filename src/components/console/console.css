@@ -1,0 +1,52 @@
+.bot-console {
+    background-color: var(--color-2);
+    border-radius: 5px;
+    height: 15rem;
+    padding: 0.5rem
+}
+
+.bot-console > pre, .bot-console p {
+    margin: 0
+}
+
+.bot-console > pre > i {
+    opacity: 0.5;
+}
+
+.bot-console p {
+    padding: 0.1rem;
+}
+
+.bot-console p:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.bot-console p:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+#log-error {
+    background-color: color-mix(
+        in srgb,
+        red 25%,
+        transparent 75%);
+}
+
+#log-warning {
+    background-color: color-mix(
+        in srgb,
+        yellow 25%,
+        transparent 75%);
+}
+
+#log-success {
+    background-color: color-mix(in srgb,
+    lime 25%,
+    transparent 75%);
+}
+
+#log-other {
+    font-style: italic;
+}

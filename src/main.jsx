@@ -1,6 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Routes, Route, BrowserRouter } from 'react-router';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { ToastContainer } from 'react-toastify';
 import Modal from 'react-modal';
 
 import ThemeStore from './lib/stores/theme.js';
@@ -20,13 +22,26 @@ ThemeStore.on('themeChange', theme => {
 
 document.body.classList.add('theme-' + ThemeStore.getTheme());
 
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            retry: false,
+            refetchOnWindowFocus: false,
+            refetchIntervalInBackground: false,
+        }
+    }
+});
+
 createRoot(root).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/editor/:id?' element={<Editor />} />
-      </Routes>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <ToastContainer />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/editor/:id?' element={<Editor />} />
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
   </StrictMode>,
 );

@@ -32,7 +32,7 @@ function CreateBotModal (props) {
                 }}
             />
         </Modal>
-    )
+    );
 }
 
 export default CreateBotModal;

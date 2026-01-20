@@ -21,7 +21,7 @@ function SecretsModal (props) {
     const [items, setItems] = useState({});
 
     useEffect(() => {
-        if (data) setItems(data);
+        if (data) setItems(JSON.parse(data.secrets));
     }, [data]);
 
     const handleSecretChange = (name, newValue) => {

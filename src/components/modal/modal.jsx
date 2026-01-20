@@ -1,4 +1,5 @@
 import ReactModal from 'react-modal';
+import Loader from '../loader/loader';
 import './modal.css';
 
 function Modal (props) {
@@ -30,8 +31,8 @@ function Modal (props) {
                     <p>{props.description}</p>
                 }
                 <hr />
-                <div className='modal-contents' style={props.style}>
-                    {props.children}
+                <div className={props.className ? 'modal-contents ' + props.className : 'modal-contents'} style={props.style}>
+                    {props.isLoading ? <Loader /> : props.children}
                 </div>
                 <div className='modal-close-options'>
                     {props.onSaveClose ? <>
