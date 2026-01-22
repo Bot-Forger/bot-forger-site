@@ -64,8 +64,9 @@ function SecretsModal (props) {
                 isPending ? <Loader /> :
                 (error ? <Error message={`Failed to load secrets: ${error.message}`} /> : <>
                     {Object.entries(items || {})
-                        .map(([name, value]) => (
+                        .map(([name, value], i) => (
                             <SecretsItem
+                                key={i}
                                 name={name}
                                 value={value}
                                 onChange={val => handleSecretChange(name, val.target.value)}
