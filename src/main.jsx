@@ -7,7 +7,8 @@ import Modal from 'react-modal';
 
 import ThemeStore from './lib/stores/theme.js';
 
-import './index.css';
+import './styles/main.css';
+import './styles/icons.css';
 
 import Dashboard from './pages/dashboard.jsx';
 import Editor from './pages/editor.jsx'

@@ -8,12 +8,15 @@
 }
 
 .bots-new {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     align-self: flex-start;
-    display: block;
     cursor: pointer;
     margin: 1rem;
+    font-size: 1rem;
     padding: 0.20rem 0.75rem 0.20rem 0.75rem;
-    font-size: 1rem
 }
 
 .bot-item {
@@ -45,4 +48,8 @@
     top: 0.2rem;
     right: 0.2rem;
     cursor: pointer;
+}
+
+.bot-item .trash-icon > path {
+    stroke: var(--color-5)
 }

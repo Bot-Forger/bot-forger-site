@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
+import PlusIcon from '../../icons/plus.svg?react';
+
 import Loader from '../loader/loader.jsx';
 import Error from '../error/error.jsx';
 import BotItem from './bot-item.jsx';
@@ -30,7 +32,15 @@ function DashboardBots (props) {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <button className='bots-new' onClick={handleNew}>New</button>
+            <button className='bots-new' onClick={handleNew}>
+                <PlusIcon
+                    className='plus-icon'
+                    width='1.25rem'
+                    height='1.25rem'
+                    style={{ marginRight: '0.5rem' }}
+                />
+                New
+            </button>
             <div className='bots-container'>
                 {
                     data.map((bot, i) => 
@@ -38,7 +48,6 @@ function DashboardBots (props) {
                             key={i}
                             id={bot.id}
                             name={bot.name}
-                            description={bot.description}
                             lastUpdated={new Date(bot.last_updated)}
                             onDelete={handleDelete}
                         />

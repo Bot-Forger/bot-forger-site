@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import Button from '../button/button';
-import DropdownCaret from './dropdown-caret.svg';
+import DropdownCaretIcon from '../../icons/dropdown.svg?react';
 
 function DropdownMenu (props) {
     const [isOpen, setIsOpen] = useState(false);
@@ -29,8 +29,7 @@ function DropdownMenu (props) {
                     />
                 }
                 {props.label}
-                <img
-                    src={DropdownCaret}
+                <DropdownCaretIcon
                     style={{ paddingLeft: '6px', verticalAlign: 'middle' }}
                     width={10}
                     height={10}

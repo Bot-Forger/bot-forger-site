@@ -1,0 +1,15 @@
+.trash-icon > path {
+    stroke: var(--color-5);
+}
+
+.folder-icon > path {
+    fill: var(--color-5);
+}
+
+.gear-icon > path {
+    fill: var(--color-5);
+}
+
+.plus-icon > path {
+    fill: var(--color-5);
+}
